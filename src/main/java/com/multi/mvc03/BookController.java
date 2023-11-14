@@ -1,5 +1,7 @@
 package com.multi.mvc03;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,12 @@ public class BookController {
 	
 	@Autowired
 	BookDAO dao;
+	
+	@RequestMapping("list") //list
+	public void list(Model model) {
+		List<BookDTO> list = dao.list();
+		model.addAttribute("list", list);
+	}
 	
 	@RequestMapping("one") //one?id=4
 	public void one(String id, Model model) {

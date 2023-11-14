@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="com.multi.mvc03.BookDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,7 +14,8 @@
 <body bgcolor="yellow">
 <!-- model로 views/one.jsp까지 전달한 데이타를 받아서 꺼내서 출력 -->
 <%
-	BookDTO dto = (BookDTO)request.getAttribute("dto");
+	//jsp에서 자동 import : 클릭하고 ctrl + shiftl + m
+	List<BookDTO> list = (List<BookDTO>)request.getAttribute("list");
 %>
 <div class="container mt-4">
     <table class="table">
@@ -26,14 +28,21 @@
             </tr>
         </thead>
         <tbody>
+        <% for(BookDTO dto: list){ %>
             <tr>
                 <td><%= dto.getId() %></td>
-                <td><%= dto.getName() %></td>
+                <td>
+                <a href="one?id=<%= dto.getId() %>">
+                	<%= dto.getName() %>
+                </a>
+                
+                </td>
                 <td><%= dto.getUrl() %></td>
                 <td>
                 	<img src="resources/img/<%= dto.getImg() %>">
                 </td> <!-- Added content for the fourth column -->
             </tr>
+         <% } %>
         </tbody>
     </table>
     <a href="list">
